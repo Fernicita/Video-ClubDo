@@ -4,16 +4,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+//importamos archivos de rutas de toda la aplicacion 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const directorsRouter = require('./routes/directors');
-
+const directorsRouter = require('./routes/directors'); //router de directors
 const genresRouter = require('./routes/genres');
+const moviesRouter = require('./routes/movies');
+const actorsRouter = require('./routes/actors');
+const membersRouter = require('./routes/members');
 
-const moviesRouter= require('./routes/movies');
-
-
-const app = express();
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,12 +25,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Midelware de ruteoo
+//middlewear
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/directors', directorsRouter);
-app.use('/genres', genresRouter);
-app.use('/movies', moviesRouter);
+app.use('/directors',directorsRouter);
+app.use('/genres',genresRouter);
+app.use('/movies',moviesRouter);
+app.use('/actors',actorsRouter);
+app.use('/members',membersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

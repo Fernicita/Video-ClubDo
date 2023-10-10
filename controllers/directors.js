@@ -13,18 +13,11 @@ function create(req, res, next){
 }
 
 function list(req, res, next){ //corregir esto porque me sale un error
-    Director.findAll()
+    Director.findAll({include: ['movies']})
             .then(objects=> res.json(objects))
             .catch(err => res.send(err));
 } 
 
-function index(req, res, next){
-    const id=req.params.id;
-    Director.findByPk(id)
-            .then(object => res.json(object))
-            .catch(err => res.send(err));
-
-}
 
 function replace(req, res, next){
      const id = req.params.id;
@@ -60,4 +53,11 @@ function destroy(req, res, next){
             .catch(err => res.send(err));
 }
 
+function index(req, res, next){
+    const id=req.params.id;
+    Director.findByPk(id)
+            .then(object => res.json(object))
+            .catch(err => res.send(err));
+
+}
 module.exports={create, list, index, update, replace, destroy}
