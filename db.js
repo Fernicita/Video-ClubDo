@@ -7,7 +7,6 @@ const actorModel = require('./models/actor');
 const memberModel = require('./models/member');
 const movieActorModel = require('./models/movieActor');
 
-
 //establecer conexión con la base de datos estos elementos son los que se van a utilizar traer la imagen
 /*
     1)Nombre de la base de datos
