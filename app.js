@@ -21,11 +21,11 @@ mongoose.connect(url);
 const db= mongoose.connection;
 
 db.on('open', ()=>{
-  console.log("OKKK");
+  console.log("Sí se pudo :D");
 });
 
 db.on('error', ()=>{
-  console.log("No se pudo");
+  console.log("No se pudo D:");
 });
 
 
