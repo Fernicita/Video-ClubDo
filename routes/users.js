@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/users');
 
 /* GET users listing. */
-//la gerarquia importa, cuidado
+//la jerarquia importa, cuidado
 router.post('/', controller.create);
 
 router.get('/', controller.list);
