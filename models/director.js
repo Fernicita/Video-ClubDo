@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const mongoosePaginate = require('mongoose-paginate-v2');
 //Schema: representa la coleccion que se encuentra en la base de datos basada en documento
 const schema = mongoose.Schema({
     _name:String,
@@ -28,4 +28,5 @@ class Director{
 }
 
 schema.loadClass(Director);
+schema.plugin(mongoosePaginate); //Paginar los resultados
 module.exports = mongoose.model('Director', schema);

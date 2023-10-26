@@ -21,7 +21,13 @@ function create(req, res, next){
 }
 
 function list(req, res, next){
-    Director.find()
+    let page = req.params.page ? params.page:1;
+    const options ={
+        page: page,
+        limit: 5
+    };
+
+    Director.paginate({},options)
             .then(objs => res.status(200).json({
                 mssage:"Lista de directores ",
                 obj:objs
