@@ -1,13 +1,22 @@
 const express = require('express');
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
-function create(req, res, next){
-    const name = req.body.name;
-    const lastName = req.body.lastName;
-    const email = req.body.email;
-    const password = req.body.password;
+async function create(req, res, next){
+    let name = req.body.name;
+    let lastName = req.body.lastName;
+    let email = req.body.email;
+    let password = req.body.password;
+
+    let salt = await bcrypt.genSalt(10);
+    let passwordHash = await bcrypt.hash(password, salt);
+
     let user = new User({
-        name:name, lastName:lastName, email:email, password:password
+        name:name, 
+        lastName:lastName, 
+        email:email, 
+        password:password, 
+        salt:salt
     });
     user.save().then(obj => res.status(200).json({
         message:"Usuario creado correctamente", 

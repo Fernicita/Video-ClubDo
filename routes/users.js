@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/users');
-
-/* GET users listing. */
-//la jerarquia importa, cuidado
-router.post('/', controller.create);
-
-router.get('/', controller.list);
+/* GET users listing.
+la jerarquia importa CUIDADO*/
+router.get('/',controller.list );
 
 router.get('/:id', controller.index);
+
+router.post('/', controller.create);
 
 router.put('/:id', controller.replace);
 
