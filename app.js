@@ -6,6 +6,7 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const {expressjwt} = require('express-jwt');
 
+
 const JwKey = "e062dcb0bf3b2ab1bb1d1365a6fc81ed"
 
 const indexRouter = require('./routes/index');
@@ -13,11 +14,11 @@ const usersRouter = require('./routes/users');
 const directorsRouter = require('./routes/directors');
 const actorsRouter = require('./routes/actors');
 const genresRouter = require('./routes/genres');
-const membersRouter= requiere('./routes/members');
+const membersRouter = require('./routes/members');
 const moviesRouter = require('./routes/movies');
-const bookingsRouter = require('./routes/bookings');
 const copiesRouter = require('./routes/copies');
-
+const bookingsRouter = require('./routes/bookings');
+const awaitlistsRouter = require('./routes/awaitlists');
 
 const app = express();
 
@@ -59,9 +60,10 @@ app.use('/actors', actorsRouter);
 app.use('/genres', genresRouter);
 app.use('/members', membersRouter);
 app.use('/movies', moviesRouter);
-app.use('/bookings', bookingsRouter);
 app.use('/copies', copiesRouter);
-
+app.use('/bookings', bookingsRouter);
+app.use('/awaitlists', awaitlistsRouter);
+app.use('/login', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
