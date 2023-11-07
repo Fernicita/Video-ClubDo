@@ -1,4 +1,3 @@
-const express = require('express');
 const Actor = require('../models/actor');
 
 function create(req, res, next){
@@ -7,6 +6,7 @@ function create(req, res, next){
     let actor = new Actor({
         name:name, lastName:lastName
     });
+    
     actor.save().then(obj => res.status(200).json({
         message:"Actor creado correctamente", 
         obj:obj

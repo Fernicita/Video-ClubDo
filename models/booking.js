@@ -1,61 +1,42 @@
 const mongoose = require('mongoose');
-
-const copySchema = new mongoose.Schema({
-  _number: {
-    type: Number,
-    required: true,
-  },
-  _format: {
-    type: String,
-    enum: ['VHS', 'DVD', 'BLUE_RAY'],
-    required: true,
-  },
-  _movie: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Movie',
-    required: true,
-  },
-  _status: {
-    type: String,
-    enum: ['AVAILABLE', 'RENTED'],
-    default: 'AVAILABLE',
-  },
+const schema = mongoose.Schema({
+    _date: Date,
+    _member: {type: mongoose.Schema.ObjectId, ref: 'Member'},
+    _copy: {type: mongoose.Schema.ObjectId, ref: 'Copy'}
 });
 
-class Copy {
-  constructor(number, format, movie) {
-    this._number = number;
-    this._format = format;
-    this._movie = movie;
-  }
+class Booking{
+    constructor(date, member, copy){
+        this._date = date,
+        this._member = member;
+        this._copy = copy;
+    }
 
-  get number() {
-    return this._number;
-  }
+    get date(){
+        return this._date;
+    }
 
-  set number(value) {
-    this._number = value;
-  }
+    set date(v){
+        this._date = v;
+    }
 
-  get format() {
-    return this._format;
-  }
+    get member(){
+        return this._member;
+    }
 
-  set format(value) {
-    this._format = value;
-  }
+    set member(v){
+        this._member = v;
+    }
 
-  get movie() {
-    return this._movie;
-  }
+    get copy(){
+        return this._copy;
+    }
 
-  set movie(value) {
-    this._movie = value;
-  }
+    set copy(v){
+        this._copy = v;
+    }
+
 }
 
-copySchema.loadClass(Copy);
-
-const CopyModel = mongoose.model('Copy', copySchema);
-
-module.exports = CopyModel;
+schema.loadClass(Booking);
+module.exports = mongoose.model('Bookings', schema);

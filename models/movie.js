@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+
 const schema = mongoose.Schema({
     _title: String, 
     _director: {
-        type: mongoose.Schema.ObjectID,
+        type: mongoose.Schema.ObjectId,
         ref: 'Director'
     }
 });
@@ -13,14 +14,14 @@ class Movie{
         this._director =  director;
     }
     get title(){
-        returnthis._title;
+        return this._title;
     }
     set title(v){
         this._title = v;
 
     }
     get director(){
-        returnthis._director;
+        return this._director;
     }
     set director(v){
         this._director= v;
@@ -28,4 +29,4 @@ class Movie{
     }
 }
 schema.loadClass(Movie);
-module.exports = mongoose.model('Movie', schema);
+module.exports = mongoose.model('Movies', schema);
