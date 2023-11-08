@@ -4,6 +4,8 @@ const router= express.Router();
 
 const controller = require('../controllers/directors');
 
+const { checkPermission } = require('../acl');
+
 router.post('/', controller.create);
 
 router.get('/list/:page', controller.list);

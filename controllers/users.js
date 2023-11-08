@@ -7,8 +7,11 @@ async function create(req, res, next){
     let lastName = req.body.lastName;
     let email = req.body.email;
     let password = req.body.password;
-
+    let permissions = req.body.permissions || [];
+    //Es aquí donde le damos a que user va a tener lo de permisos y se
+    // le hace para que esta acepte una lista
     let salt = await bcrypt.genSalt(10);
+
     let passwordHash = await bcrypt.hash(password, salt);
 
     let user = new User({
@@ -16,7 +19,11 @@ async function create(req, res, next){
         lastName:lastName, 
         email:email, 
         password:password, 
-        salt:salt
+        salt:salt,
+        permissions:permissions
+        /* Aquí se agregó lo de permissions
+        lo de arriba que es la lista de los permisos
+        que va a tener ese usuario*/
     });
     user.save().then(obj => res.status(200).json({
         message:"Usuario creado correctamente", 

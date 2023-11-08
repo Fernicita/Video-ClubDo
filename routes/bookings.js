@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bookingController = require('../controllers/bookings');
+const { checkPermission } = require('../acl');
 
 router.post('/', bookingController.create);
 router.get('/', bookingController.list);

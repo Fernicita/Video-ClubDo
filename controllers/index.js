@@ -13,6 +13,7 @@ function login(req, res, next){
     const password = req.body.password;
     const JwKey = "e062dcb0bf3b2ab1bb1d1365a6fc81ed"//la de internet
     User.finOne({"_email": email}).then(user=>{
+        console.log(user._id);
         if(user){
             bcrypt.hash(password, user.salt, (err,hash)=>{
                 if (err){
@@ -24,10 +25,27 @@ function login(req, res, next){
 
                 }
                 if (hash == user.password){
+                    const token = jwt.sign(
+                        {
+                            id: user.id,  
+                            data: user.data,
+                            exp: Math.floor(Date.now() / 1000) + 240
+                        },
+                        JwtKey //aqui da la de interactuar, lo de arriba se cambia por falta de tiempo
+                        
+                    );
+
+                    user.token = token;
+                    
                     res.status(200).json({
+                        msg: "login success",
+                        obj: user,  // Devuelve el objeto del usuario
+                        token: token 
+                    });
+                    /*res.status(200).json({
                         msg:"Login ok",
                         obj: jwt.sign({data:user.data, exp:Math.floor(Date.now()/1000)+60},JwKey)
-                    });
+                    });*/
                 }else{
                     res.status(403).json({
                         msg:"Usuario y/o contraseña incorrecto",
@@ -41,9 +59,9 @@ function login(req, res, next){
                 obj:null
             });
         }
-    }).catch(ex=> res.status(403).json({
+    }).catch(e=> res.status(403).json({
         msg:"Usuario y/o contraseña incorrecto",
-        obj:err
+        obj:e
     }));
 }
 

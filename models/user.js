@@ -4,17 +4,25 @@ const schema = mongoose.Schema({
     _name:String,
     _lastName:String,
     _email:String,
-    _password:String
+    _password:String,
+    _salt:String,
+    _permissions: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Permission'
+        }
+    ]
     //phone
 })
 
 class User {
-    constructor(name, lastName, email, password){
+    constructor(name, lastName, email, password, salt, permissions){
         this._name = name;
         this._lastName = lastName;
         this._email = email;
         this._password = password;
         this._salt =salt;
+        this._permissions = permissions;
     }
 
     get name(){ return this._name; }
@@ -31,6 +39,9 @@ class User {
 
     get salt() {return this._salt; }
     set salt(v) {this._salt = v; }
+
+    get permissions() { return this._permissions; }
+    set permissions(v) { this._permissions = v; }
 }
 
 schema.loadClass(User);

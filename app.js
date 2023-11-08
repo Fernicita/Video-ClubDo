@@ -50,7 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(expressjwt({secret:JwKey, algorithms:['HS256']})
-   .unless({path:["/login"]})); //Que de todo no voy a bloquear 
+   .unless({path:["/login", "/users", "/users/:id"]})); 
+   //Que de todo no voy a bloquear aquí agregamos users pq vamos a tomar un valor de ahi
 
 //Midelware de ruteoo
 app.use('/', indexRouter);

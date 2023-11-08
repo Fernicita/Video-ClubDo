@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/actors');
+const { checkPermission } = require('../acl');
 
 router.post('/', controller.create)
 
