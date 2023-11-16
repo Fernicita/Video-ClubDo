@@ -18,8 +18,9 @@ function login(req, res, next){
             bcrypt.hash(password, user.salt, (err,hash)=>{
                 if (err){
                     //regresar error 
+                    //inyección de código
                     res.status(403).json({
-                        msg:"Usuario y/o contraseña incorrecto",
+                        msg:res.__('login.wrong'),
                         obj: err
                     });
 
@@ -38,7 +39,7 @@ function login(req, res, next){
                     user.token = token;
                     
                     res.status(200).json({
-                        msg: "login success",
+                        msg:res.__('login.ok'),
                         obj: user,  // Devuelve el objeto del usuario
                         token: token 
                     });
@@ -48,19 +49,19 @@ function login(req, res, next){
                     });*/
                 }else{
                     res.status(403).json({
-                        msg:"Usuario y/o contraseña incorrecto",
+                        msg:res.__('login.wrong'),
                         obj: null
                     });
                 }
             });
         }else{
             res.status(403).json({
-                msg:"Usuario y/o contraseña incorrecto",
+                msg:res.__('login.wrong'),
                 obj:null
             });
         }
     }).catch(e=> res.status(403).json({
-        msg:"Usuario y/o contraseña incorrecto",
+        msg:res.__('login.wrong'),
         obj:e
     }));
 }

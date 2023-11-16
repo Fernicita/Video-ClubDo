@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const {expressjwt} = require('express-jwt');
+const i18n = require('i18n');
 
 
 const JwKey = "e062dcb0bf3b2ab1bb1d1365a6fc81ed"
@@ -37,6 +38,12 @@ db.on('error', ()=>{
   console.log("No se pudo D:");
 });
 
+i18n.configure({
+  locales:['es','en'],
+  cookie:'language', 
+  director:`${__dirname}/locales ` //donde van a estar los archivos de interna.
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -47,6 +54,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(i18n.init);
 
 
 app.use(expressjwt({secret:JwKey, algorithms:['HS256']})
