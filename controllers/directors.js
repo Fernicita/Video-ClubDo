@@ -28,10 +28,7 @@ function list(req, res, next){
     };
 
     Director.paginate({},options)
-            .then(objs => res.status(200).json({
-                mssage:"Lista de directores ",
-                obj:objs
-            }))
+            .then(objs => res.render('directors/list', {directors:objs}))
             .catch(ex => res.status(500).json({
                 msg: "No se pudo consultar la lista de directores",
                 obj:ex
