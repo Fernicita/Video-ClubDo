@@ -16,4 +16,18 @@ describe("Probar el sistema de auteticación", ()=>{
 
         });
     });
+    it('Deberia de rechazar un login con user y pass incorrectos', (done)=>{
+        supertest(app).post('/login')
+        .send({"email": "abc@gmail.com", "password": "abcd"})
+        .expect(403)
+        .end(function(err, res){
+            if(err){
+                done(err)
+            }else{
+                done();
+            }
+        })
+    })
+
 });
+    
